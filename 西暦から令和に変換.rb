@@ -3,10 +3,24 @@ require 'clip'
 App.end_time = 10
 
 font = Font.new(50)
+$font_large = Font.new(60)
+
+def background(c, x, y)
+  c.text($font_large, x, y, color: [0, 0, 0, 32], text: "西暦 令和 西暦 令和")
+end
+
+script do |c|
+  Drawer.background(0)
+
+  background(c, 20, 0)
+  background(c, 20, 100)
+  background(c, 20, 200)
+  background(c, 20, 300)
+  background(c, 20, 400)
+end
 
 script do |c|
   t = c.text(font, 10, 10, color: 3)
-  Drawer.background(0)
 
   # シーン1
   t.text = "西暦から令和に\n変換する方法"
