@@ -23,7 +23,14 @@ script do |root|
     pumpkin_right = scene.texture(pumpkin, 480, 120)
     pumpkin_right.scale(0.5, 0.5)
 
-    scene.until_time 3
+    loop do
+      break if scene.time >= 3
+
+      pumpkin_left.rotate -= 2
+      pumpkin_right.rotate += 2
+
+      scene.wait_delta
+    end
   end
 
   # シーン2
