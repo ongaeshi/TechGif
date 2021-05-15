@@ -11,9 +11,9 @@ script do |c|
   Drawer.background("black")
 end
 
-script do |c|
+script do |root|
   # シーン1
-  c.scene_script do |scene|
+  root.scene_script do |scene|
     t = scene.text(font, 120, 120, color: "orange")
     t.text = "かぼちゃの煮物"
 
@@ -27,7 +27,7 @@ script do |c|
   end
 
   # シーン2
-  c.scene_script do |scene|
+  root.scene_script do |scene|
     t = scene.text(font, 10, 10, color: "orange")
 
     t.text = "かぼちゃ 1/4個\n"
@@ -41,7 +41,7 @@ script do |c|
   end
 
   # シーン3
-  c.scene_script do |scene|
+  root.scene_script do |scene|
     t = scene.text(font_s, 10, 10, color: "orange")
     t.text = "1. かぼちゃを入れて水の高さは1.5cm位\n"
     scene.wait 2
