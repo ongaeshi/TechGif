@@ -39,6 +39,10 @@ module Clip
       @children.push(clip)
     end
 
+    def delete_clip(clip)
+      @children.delete(clip)
+    end
+
     def reset
       clear_clip
       reset_script
@@ -91,12 +95,7 @@ module Clip
         Fiber.yield
       end
     end
-  end
 
-  class BlockClip < ClipObject
-    def initialize(parent, &block)
-      super(parent)
-      set_script(&block)
-    end
+    def fiber_end? = @fiber && !@fiber.alive?
   end
 end
