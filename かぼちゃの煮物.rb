@@ -2,11 +2,17 @@ require 'clip'
 
 App.end_time = 15
 
+$font_title = Font.new(70)
+
 font = Font.new(50)
 font_s = Font.new(30)
 
 pumpkin = Texture.new(Emoji.new("🎃"))
 spoon = Texture.new(Emoji.new("🥄"))
+
+def title(clip, text)
+  clip.text($font_title, 10, 0, color: "orange", text: text)
+end
 
 script do |c|
   Drawer.background("black")
@@ -24,11 +30,14 @@ script do |root|
     pumpkin_right = scene.texture(pumpkin, 480, 120)
     pumpkin_right.scale(0.5, 0.5)
 
+    rot_speed = 1.5
+
     loop do
       break if scene.time >= 3
 
-      pumpkin_left.rotate -= 2
-      pumpkin_right.rotate += 2
+      pumpkin_left.rotate -= rot_speed
+      pumpkin_right.rotate += rot_speed
+      rot_speed *= -1 if pumpkin_left.rotate.abs > 10
 
       scene.wait_delta
     end
@@ -36,17 +45,19 @@ script do |root|
 
   # シーン2
   root.scene_script do |scene|
-    t = scene.text(font, 10, 10, color: "orange")
+    title(scene, "材料")
+
+    t = scene.text(font, 10, 100, color: "silver")
 
     t.text = "かぼちゃ 1/4個\n"
-    scene.texture(pumpkin, 380, 10).scale(0.5, 0.5)
+    scene.texture(pumpkin, 380, 110).scale(0.5, 0.5)
     # TODO: 1/4の表現
     scene.wait 0.8
     t.text += "砂糖 大さじ1\n"
-    scene.texture(spoon, 380, 80).scale(0.5, 0.5)
+    scene.texture(spoon, 380, 180).scale(0.5, 0.5)
     scene.wait 0.8
     t.text += "醤油 大さじ1\n"
-    scene.texture(spoon, 380, 150).scale(0.5, 0.5)
+    scene.texture(spoon, 380, 250).scale(0.5, 0.5)
     scene.wait 0.8
 
     scene.until_time 4
@@ -54,8 +65,10 @@ script do |root|
 
   # シーン3
   root.scene_script do |scene|
-    t = scene.text(font_s, 10, 10, color: "orange")
-    t.text = "1. かぼちゃを入れて水の高さは1.5cm位\n"
+    title(scene, "作り方")
+
+    t = scene.text(font_s, 10, 110, color: "silver")
+    t.text = "1. かぼちゃを入れて水の高さは1.5cm\n"
     scene.wait 2
     t.text += "2. 砂糖入れて蓋して中火で蒸し煮\n"
     scene.wait 2
