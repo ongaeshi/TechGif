@@ -1,6 +1,6 @@
 require 'clip'
 
-App.end_time = 15
+App.end_time = 13
 
 $font_title = Font.new(70)
 
