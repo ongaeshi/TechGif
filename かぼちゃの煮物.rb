@@ -5,7 +5,8 @@ App.end_time = 15
 font = Font.new(50)
 font_s = Font.new(30)
 
-pumpkin = Texture.new(Emoji.new("🎃"), TextureDesc::Mipped)
+pumpkin = Texture.new(Emoji.new("🎃"))
+spoon = Texture.new(Emoji.new("🥄"))
 
 script do |c|
   Drawer.background("black")
@@ -38,10 +39,14 @@ script do |root|
     t = scene.text(font, 10, 10, color: "orange")
 
     t.text = "かぼちゃ 1/4個\n"
+    scene.texture(pumpkin, 380, 10).scale(0.5, 0.5)
+    # TODO: 1/4の表現
     scene.wait 0.8
     t.text += "砂糖 大さじ1\n"
+    scene.texture(spoon, 380, 80).scale(0.5, 0.5)
     scene.wait 0.8
     t.text += "醤油 大さじ1\n"
+    scene.texture(spoon, 380, 150).scale(0.5, 0.5)
     scene.wait 0.8
 
     scene.until_time 4
