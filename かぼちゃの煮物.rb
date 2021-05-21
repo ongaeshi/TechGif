@@ -51,6 +51,8 @@ script do |root|
 
     t.text = "かぼちゃ 1/4個\n"
     scene.texture(pumpkin, 380, 110).scale(0.5, 0.5)
+    scene.rect(415, 120, 40, 80, color: [0x11, 0x11, 0x11, 220])
+    scene.rect(380, 150, 35, 80, color: [0x11, 0x11, 0x11, 220])
     # TODO: 1/4の表現
     scene.wait 0.8
     t.text += "砂糖 大さじ1\n"
