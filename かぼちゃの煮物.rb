@@ -1,5 +1,6 @@
 require 'clip'
 
+App.window_size(640, 360)
 App.end_time = 13
 
 $font_title = Font.new(70)
