@@ -3,7 +3,7 @@ require 'clip_object'
 module Clip
   class ClipManager
     attr_reader :root, :time
-    attr_accessor :start_time, :end_time, :is_stop, :is_loop
+    attr_accessor :start_time, :end_time, :is_stop, :is_loop, :is_hidden
 
     def initialize(start_time = nil, is_stop = nil, is_loop = nil)
       @root = RootClip.new
@@ -12,6 +12,28 @@ module Clip
       @end_time = 4.0
       @is_stop = is_stop || false
       @is_loop = is_loop.nil? ? true : is_loop
+      @is_hidden = false
+      window_size(800, 600)
+    end
+
+    def window_size(x, y)
+      @width = x
+      @height = y
+      window_resize
+    end
+
+    def window_resize
+      Window.resize(@width, @height + y_add_offset)
+    end
+
+    def y_add_offset
+      if @is_hidden
+        0
+      elsif @width > 400
+        60
+      else
+        120 # MrbMisc.cpp#UiHeight
+      end
     end
 
     def script(&block)
@@ -52,8 +74,13 @@ module Clip
         end
 
         prev_time = @time
+        prev_hidden = @is_hidden
 
-        @time, @is_stop, @is_loop = timeline_ui(@time, @end_time, @is_stop, @is_loop)
+        @time, @is_stop, @is_loop, @is_hidden = timeline_ui(@time, @end_time, @is_stop, @is_loop, @is_hidden)
+
+        if prev_hidden != @is_hidden
+          window_resize
+        end
       
         unless @is_stop
           delta_time = min_delta_time
