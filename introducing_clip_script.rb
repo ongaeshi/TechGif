@@ -3,6 +3,7 @@ require 'clip'
 App.window_size(800, 450)
 App.end_time = 17
 
+font_l = Font.new(80)
 font = Font.new(50)
 font_s = Font.new(25)
 
@@ -15,7 +16,19 @@ end
 
 script do |root|
   root.scene_script do |scene|
-    scene.text(font, 120, 120, color: "black", text: "ClipScriptの紹介")
+    (0..10).each do |x|
+      (0..10).each do |y|
+        if (x + y) % 2 == 0
+          scene.rect(x * 80, y * 80, 80, 80, color: "aqua")
+          scene.wait 0.02
+        end
+      end
+    end
+
+    scene.wait 0.5
+
+    scene.text(font_l, 90, 170, color: "navy", text: "ClipScriptの紹介")
+
     scene.wait 2
   end
 
