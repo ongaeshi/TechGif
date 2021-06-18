@@ -3,7 +3,7 @@ require 'drawer'
 
 module Clip
   class TextClip < ClipObject
-    attr_accessor :font, :x, :y, :text
+    attr_accessor :font, :x, :y, :text, :length
 
     def initialize(parent, font, x, y, opt = {})
       super(parent)
@@ -12,10 +12,16 @@ module Clip
       @y = y
       @text = opt[:text] || ""
       @color = opt[:color] || "black"
+      @length = opt[:length]
+      @center = opt[:center] || false
     end
 
     def draw
-      Drawer.text(@font, @x, @y, @text, @color)
+      if @center
+        Drawer.text_at(@font, @x, @y, @text, @color, @length)
+      else
+        Drawer.text(@font, @x, @y, @text, @color, @length)
+      end
     end
   end
 
